@@ -1,0 +1,149 @@
+/* static/style.css */
+
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  flex-direction: column;
+  background-color: #000; /*Assuming a dark theme */
+  /* background-color: #fff; */
+  color: #fff;
+  font-family: 'Arial', sans-serif;
+  margin: 0;
+}
+
+.container {
+  text-align: center;
+}
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+  
+  .wheel {
+    width: 300px;
+    height: 300px;
+    border-radius: 50%;
+    position: relative;
+    text-align: center;
+    animation: spin 3s ease;
+    background: url('image3.png') center/cover no-repeat; /* Set path to your wheel image */
+  }
+  
+  .wheel::before {
+    content: '';
+    position: absolute;
+    top: -5px;
+    left: 50%;
+    width: 10px;
+    height: 10px;
+    background-color: #fff;
+    border-radius: 50%;
+    transform: translateX(-50%);
+    box-shadow: 0 0 15px #fff; /* White dot at the top */
+  }
+  
+  .wheel::after {
+    /* content: '?'; */
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: #fff; /* The color of the text */
+    font-size: 3em; /* The size of the '?' character */
+    z-index: 2;
+    text-shadow: 0 0 15px #39f; /* Glow effect for the text */
+  }
+  
+  .neon-base {
+    width: 100px;
+    height: 20px;
+    background-color: #600080; /* Base color */
+    border-radius: 10px;
+    position: relative;
+    top: 220px; /* Adjust based on the exact position */
+    left: 50%;
+    transform: translateX(-50%);
+    box-shadow: 0 0 20px #600080; /* Base glow */
+  }
+  
+  .wheel {
+    /* ... */
+    margin: 20px auto; /* Centers the wheel and adds space around it */
+  }
+  
+  /* Adjust the position of the neon base to be directly under the wheel */
+  .neon-base {
+    /* ... */
+    position: absolute;
+    top: calc(100% + 10px); /* This positions the base just below the wheel */
+    z-index: 1;
+  }
+  
+  .input-group {
+    margin: 20px 0; /* Adds space above and below the input group */
+  }
+  
+  /* Style the button */
+  button {
+    cursor: pointer;
+    padding: 10px 20px;
+    border: none;
+    background-color: #39f;
+    color: #fff;
+    font-size: 1em;
+    border-radius: 5px;
+    box-shadow: 0 0 10px #39f;
+    margin-top: 20px; /* Space between inputs and button */
+  }
+  
+  button:hover {
+    background-color: #2a7;
+  }
+  
+  /* Style the inputs */
+  input {
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    margin: 0 10px; /* Adds space between inputs */
+  }
+
+/* Add this to your static/style.css */
+#result {
+  font-size: 2em; /* Increase font size */
+  color: #FFD700; /* Gold color for the winner text */
+  margin-top: 20px;
+  font-weight: bold;
+}
+
+/* Fireworks CSS (basic example) */
+.fireworks {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: none;
+  background: url('giphy-3.gif') center no-repeat;
+  background-size: cover;
+  z-index: 999;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  padding: 10px; /* Add padding to ensure the logo is not sticking to the very edge */
+}
+
+#logo {
+  max-width: 150px; /* Adjust the size as needed */
+  height: auto;
+  position: absolute;
+  top: 0;
+  left: 0;
+  margin: 10px; /* Adjust margin as needed */
+}

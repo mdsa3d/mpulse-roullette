@@ -1,0 +1,68 @@
+<!-- templates/index.html -->
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>M-Pulse Roulette</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div id="wheel" class="wheel"></div>
+    <div class="input-group">
+        <input type="text" id="survey_id" placeholder="Enter Survey ID">
+        <input type="number" id="num_people" placeholder="How many numbers to select?" min="1" value="1">
+    </div>
+    <button onclick="spinWheel()">Shuffle</button>
+    <p id="result"></p>
+
+    <script>
+        function spinWheel() {
+          var wheel = document.getElementById('wheel');
+          var fireworks = document.createElement('div');
+          fireworks.className = 'fireworks';
+          document.body.appendChild(fireworks);
+      
+          // Start spinning the wheel, now for 5 seconds
+          wheel.style.animation = "spin 5s infinite linear";
+      
+          const surveyId = document.getElementById('survey_id').value;
+          const numPeople = document.getElementById('num_people').value;
+      
+          // Perform the fetch request
+          fetch('/shuffle', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded',
+            },
+            body: `survey_id=${surveyId}&num_people=${numPeople}`
+          })
+          .then(response => response.json())
+          .then(data => {
+            // Stop the wheel after 5 seconds and show the result
+            setTimeout(() => {
+              wheel.style.animation = '';
+              if (data.numbers) {
+                document.getElementById('result').innerText = 'Winner: ' + data.numbers.join(', ');
+                // Show fireworks for a few seconds
+                fireworks.style.display = 'block';
+                setTimeout(() => {
+                  fireworks.style.display = 'none';
+                }, 5000); // Display fireworks for 5 seconds
+              } else {
+                document.getElementById('result').innerText = 'Error: ' + data.error;
+              }
+            }, 5000); // 5000 milliseconds = 5 seconds
+          }).catch(error => {
+            // If there is an error during the fetch, stop the wheel after 5 seconds and show an error
+            setTimeout(() => {
+              wheel.style.animation = '';
+              document.getElementById('result').innerText = 'Error: ' + error;
+            }, 5000);
+          });
+        }
+      </script>
+      
+      
+      
+</body>
+</html>
