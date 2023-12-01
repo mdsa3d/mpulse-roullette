@@ -109,6 +109,11 @@ def shuffle():
             return jsonify({'error': str(e)})
     else:
         return jsonify({'error': 'No PF numbers found or not enough unique PF numbers'})
+@app.route('/clear-winners', methods=['POST'])
+def clear_winners():
+    open(WINNERS_FILE, 'w').close()  # This will clear the contents of the file
+    return '', 204  # No content to return
+# return redirect(url_for('index'))  # Redirect back to the main page
 
 
 if __name__ == '__main__':
